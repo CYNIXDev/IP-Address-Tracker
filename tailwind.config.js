@@ -5,8 +5,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
-  },
-  plugins: ["prettier-plugin-tailwindcss"],
+    extend: {
+      colors: {
+        VeryDarkGray: 'hsl(0, 0%, 17%)',
+        DarkGray: 'hsl(0, 0%, 59%)'
+      },
+      fontFamily: {
+        'sans': ['Rubik', "sans-serif"],
+      },
+    },
+    plugins: ["prettier-plugin-tailwindcss"],
+  }
 }
-
