@@ -5,8 +5,8 @@ import bgDesktop from "./assets/images/animateBG.jpg";
 import Details from "./component/Details";
 import MapCreator from "./component/MapCreator";
 import Header from "./component/Header";
-import apiRequests from "./apiService";
-import inputValidator from "./inputValidator";
+import apiRequests from "./apiService.js";
+import inputValidator from "./inputValidator.js";
 
 function App() {
   const [input, setInput] = useState("");
@@ -20,6 +20,7 @@ function App() {
     lng: 100.50183629941928,
     isp: "-",
     placeholder: null,
+    id: uuidv4()
   });
 
   async function onSubmitHandle(event) {
@@ -32,7 +33,7 @@ function App() {
       if (apiRespond.status === 200) {
         let { ip, location: { city, region, postalCode, timezone, lat, lng, }, isp, } = apiRespond.data;
         setOutput({
-          ip, city, region, postalCode, timezone, lat, lng, isp,
+          ip, city, region, postalCode, timezone, lat, lng, isp, id: uuidv4()
         });
       } else {
         setInput("")
