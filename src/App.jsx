@@ -5,8 +5,8 @@ import bgDesktop from "./assets/images/animateBG.jpg";
 import Details from "./component/Details";
 import MapCreator from "./component/MapCreator";
 import Header from "./component/Header";
-import apiRequests from "./apiService.js";
-import inputValidator from "./inputValidator.js";
+import apiRequests from "./apiService";
+import inputValidator from "./inputValidator";
 
 function App() {
   const [input, setInput] = useState("");
