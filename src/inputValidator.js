@@ -23,7 +23,7 @@ export default function inputValidator(userInput) {
         console.log(parts)
         // Check if there are enough parts to have a subdomain
         if (parts.length > 2) {
-            data.log = "Please do not input sub domain"
+            data.log = "Please do not input a subdomain."
             data.result = false
         } else {
             data.log = "This is a Domain"
@@ -31,9 +31,8 @@ export default function inputValidator(userInput) {
             data.type = 'domain'
         }
     } else {
-        data.log = "Please input IPv4 or domain name only"
+        data.log = "Please input only IPv4 addresses or domain names."
         data.result = false
     }
-    console.log("data: ", data) //data:  { log: 'This is an IP address.', result: true }
     return data
 }
