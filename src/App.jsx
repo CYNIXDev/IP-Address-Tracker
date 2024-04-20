@@ -5,8 +5,8 @@ import bgDesktop from "./assets/images/animateBG.jpg";
 import Details from "./component/Details";
 import MapCreator from "./component/MapCreator";
 import Header from "./component/Header";
-import apiRequests from "./apiService";
-import inputValidator from "./inputValidator";
+import apiRequests from "./service/apiService";
+import inputValidator from "./service/inputValidator";
 
 function App() {
   const [input, setInput] = useState("");
@@ -76,13 +76,7 @@ function App() {
               <MapCreator {...output} />
             </section>
           </section>
-
         </section >
-
-        {/* Map */}
-        {/* <section section className="absolute bottom-0 z-10 h-[60%] sm:h-[70%] = w-screen bg-gray-200 " >
-
-        </section > */}
       </main>
     </>
   );
