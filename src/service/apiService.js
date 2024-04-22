@@ -8,10 +8,8 @@ export default async function apiRequests(host, type) {
     let url
     if (type === 'domain') {
         url = apiUrl + apiKey + "&domain=" + host
-        console.log("URL: ", url)
     } else {
         url = apiUrl + apiKey + "&ipAddress=" + host
-        console.log("URL: ", url)
     }
     try {
         const response = await axios.get(url);

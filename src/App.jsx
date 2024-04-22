@@ -6,7 +6,6 @@ import Details from "./component/Details";
 import MapCreator from "./component/MapCreator";
 import Header from "./component/Header";
 import apiRequests from "./service/apiService";
-import inputValidator from "./service/inputValidator";
 
 function App() {
   const [input, setInput] = useState("");
@@ -25,28 +24,30 @@ function App() {
 
   async function onSubmitHandle(event) {
     event.preventDefault();
-    let respond = inputValidator(input);
-    let { log, type, result } = respond
-    if (result) {
-      let apiRespond = await apiRequests(input, type)
-      console.log(apiRespond);
-      if (apiRespond.status === 200) {
-        let { ip, location: { city, region, postalCode, timezone, lat, lng, }, isp, } = apiRespond.data;
-        setOutput({
-          ip, city, region, postalCode, timezone, lat, lng, isp, id: uuidv4()
-        });
-      } else {
-        setInput("")
-        setOutput(prevState => ({
-          ...prevState,
-          placeholder: apiRespond.message
-        }));
-      }
+    function isIPAddress(userInput) {
+      // Regular expression for IP address validation
+      let ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+      return ipPattern.test(userInput);
+    }
+    let inputType
+    if (isIPAddress(input)) {
+      inputType = 'ip'
+    } else {
+      inputType = 'domain'
+    }
+
+    let apiRespond = await apiRequests(input, inputType)
+    console.log(apiRespond);
+    if (apiRespond.status === 200) {
+      let { ip, location: { city, region, postalCode, timezone, lat, lng, }, isp, } = apiRespond.data;
+      setOutput({
+        ip, city, region, postalCode, timezone, lat, lng, isp, id: uuidv4()
+      });
     } else {
       setInput("")
       setOutput(prevState => ({
         ...prevState,
-        placeholder: log
+        placeholder: apiRespond.message
       }));
     }
   }
@@ -68,14 +69,14 @@ function App() {
           </section>
 
           {/* Details */}
-          <section className="w-full h-full relative flex flex-col items-center ">
+          <article className="w-full h-full relative flex flex-col items-center ">
             <section className="h-[250px] sm:h-[110px] absolute sm:-top-[55px] -top-[70px] z-20  w-8/12 sm:w-10/12 lg:w-7/12">
               <Details {...output} />
             </section>
             <section className=" w-full h-full z-10">
               <MapCreator {...output} />
             </section>
-          </section>
+          </article>
         </section >
       </main>
     </>
